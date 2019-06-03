@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            width: 80%;
+            font: 25px;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 2px;
+            border-collapse: collapse;
+            padding: 2px, 3px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function createRow(details) {
+            //Get the Table Id
+            var prjTbl = document.getElementById('TableId');
+            var tblBody = prjTbl.querySelector('tbody');
+            for (var i = 0; i < details.length; i++) {
+                var prjtd = details[i];
+                var trElements = '<tr>'
+                    + '<td>' + prjtd.Name + '</td>'
+                    + '<td>' + prjtd.Email + '</td>'
+                    + '<td>' + prjtd.MobileNo + '</td>'
+                    + '<td>' + prjtd.Age + '</td>'
+                    + '<td>' + prjtd.Gender + '</td>'
+                    + '<td>' + prjtd.Address + '</td>'
+                    + '<td>' + prjtd.Status + '</td>'
+                    + '</tr>';
+                //insert the values 
+                tblBody.innerHTML += trElements;
+            }
+        }
+    </script>
+    <script>
+        //Get Function
+        function myGet() {
+            //Xml Http Request
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    createRow(data.Data);
+                }
+            }
+            //Call the Api
+            xhr.open('GET', '/api/v1/get', true);
+            xhr.send();
+        }
+        //Load the Data in onload unction
+        window.onload = function () {
+            myGet();
+        }
+    </script>
+</head>
+
+<body>
+    <table id="TableId">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>MobileNo</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
+</head>
+<body>
+    <div id="msg1">
+        {{message}}
+    </div>
+    <p>
+        <button onclick="myfunction()">Click</button>
+    </p>
+    <script>
+        var objid = new Vue({
+            el:"#msg1",
+            data:{message:"hello"}
+        });
+
+        function myfunction(){
+            objid.message="hai"
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="msg">
+        <p>{{message}}</p>
+        <p><input v-model="message"></p>
+    </div>
+    <script>
+        var myobj = new Vue({
+            el: "#msg",
+            data: { message: "Hello" }
+        })
+    </script>
+    <!-- <div id="msg">
+        <span v-if="seen">seen the details</span>
+    </div>
+    <script>
+        var myobj = new Vue({
+            el: "#msg",
+            data: {
+                seen = true
+            }
+        });
+        myobj.seen = false
+    </script> -->
+    <!-- <div id="msg">
+        <p>{{message}}</p>
+        <button v-on:click="reversemessage">reverse message</button>
+    </div>
+    <script>
+        var myobj = new Vue({
+            el: "#msg",
+            data: {
+                message: "hello world"
+            },
+            methods: {
+                reversemessage: function () {
+                    this.message = this.message.split("").reverse().join("")
+                }
+            }
+        })
+    </script> -->
+    <!-- <script>
+    var obj ={
+         fr='new'
+     }
+
+    object.freeze(objt)
+
+    new Vue({
+        el:"#updt",
+        data:obj
+    });
+    </script>
+    <div id="updt">
+        <p>{{fr}}</p>
+        <button v-on:click="fr=know">click1</button>
+    </div> -->
+     
+
+
+
+</body>
+
+</html>

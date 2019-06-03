@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            width: 70%;
+            font: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 2px;
+            border-collapse: collapse;
+            padding: 2px, 3px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function createTableRow(projects) {
+            var prjtTbl = document.getElementById('projectTable');
+            var prjtTblBody = prjtTbl.querySelector('tbody');
+            console.log(projects);
+            for (var i = 0; i < projects.length; i++) {
+                // var prjt = projects[i];
+                var trElements = '<tr data-project-MobileNo="' + projects[i].MobileNo + '" >'
+                    + '<td>' + projects[i].Name + '</td>'
+                    + '<td>' + projects[i].Email + '</td>'
+                    + '<td>' + projects[i].MobileNo + '</td>'
+                    + '<td>' + projects[i].Age + '</td>'
+                    + '<td>' + projects[i].Gender + '</td>'
+                    + '<td>' + projects[i].Address + '</td>'
+                    + '<td>' + projects[i].Password + '</td>'
+                    + '<td>' + projects[i].Status + '</td>'
+                    + '</tr>';
+
+                prjtTblBody.innerHTML += trElements;
+            }
+        }
+    </script>
+    <script>
+        function myget() {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // document.getElementById('demo').innerHTML = this.responseText
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    createTableRow(data);
+                }
+            }
+            xhr.open('GET', '/api/v1/get', true);
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <table id="projectTable">
+        <thead>
+            <tr id="pr">
+                <th>Name</th>
+                <th>Email</th>
+                <th>MobileNo</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Password</th>
+                <th>Status</th>
+                <th id="addbt"> <input type="button" onclick="myget()" value="Add"></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+ </body>
+
+</html>

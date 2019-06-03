@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<header>
+
+    <script>
+        // <tr id="1">
+        //         <td>1</td>
+        //         <td>salary update</td>
+        //         <td>2019-02-12</td>
+        //         <td>2019-05-14</td>
+        //         <td>14</td>
+        //         <td>30</td>
+        //         <td>Ajith</td>
+        //         <td>salary upadate task</td>
+        //         <td id="addbt"> <input type="button" onclick="addfn(event)" value="Edit"></td>
+        //         <td id="editbt"><input type="button" onclick="editfn()" value="Add"></td>
+        //         <td id="deltbt"><input type="button" onclick="deltfn()" value="Delete"></td>
+        //     </tr>
+        function createTableRow(projects) {
+            var prjtTbl = document.getElementById('projectTable');
+            var prjtTblBody = prjtTbl.querySelector('tbody');
+
+            for (var i = 0; i < projects.length; i++) {
+                var prjt = projects[i];
+                var trElements = '<tr data-project-id="' + prjt.projectId + '" >'
+                    + '<td>' + prjt.projectId  + '</td>'
+                    + '<td>' + prjt.projectName  + '</td>'
+                    + '<td>' + prjt.startDate  + '</td>'
+                    + '<td>' + prjt.endDate  + '</td>'
+                    + '<td>' + prjt.projectDuration  + '</td>'
+                    + '<td>' + prjt.totalPrjHours  + '</td>'
+                    + '<td>' + prjt.prjManager  + '</td>'
+                    + '<td>' + prjt.prjDesc  + '</td>'
+                    + '<td><input type="button" onclick="addfn(event)" value="Add"></td>'
+                    + '<td><input type="button" onclick="editfn(event)" value="Edit"></td>'
+                    + '<td><input type="button" onclick="deltfn(event)" value="Delete"></td>'
+                    + '</tr>';
+
+                // prjtTblBody.append(trElements);
+                prjtTblBody.innerHTML += trElements;
+            }
+        }
+    </script>
+
+    <script>
+        function myget() {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                }
+            }
+            xhr.open('GET', `/api/v1`, true);
+            xhr.send();
+        }
+        function getId() {
+            // const id = document.getElementById('getid').value;
+            const id = 1;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // debugger;
+                    // document.getElementById('demo').innerHTML = this.responseText;
+                    var data = JSON.parse(this.responseText);
+                    console.log(data);
+                    createTableRow(data);
+                }
+            }
+            xhr.open('GET', `/api/v1/query?projectId=${id}`, true);
+            xhr.send();
+        }
+        function mypost() {
+            const param = {
+                projectId: document.getElementById('prjid').value,
+                projectName: document.getElementById('prjnm').value,
+                startDate: document.getElementById('stdt').value,
+                endDate: document.getElementById('endt').value,
+                projectDuration: document.getElementById('prjdr').value,
+                totalPrjHours: document.getElementById('prjhr').value,
+                prjManager: document.getElementById('prjmng').value,
+                prjDesc: document.getElementById('prjdesc').value
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('POST', '/api/v1', true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.send(JSON.stringify(param));
+        }
+        function myput() {
+            const id = document.getElementById('prjId').value;
+            const param = {
+                projectName: document.getElementById('prjnm').value,
+                startDate: document.getElementById('stdt').value,
+                endDate: document.getElementById('endt').value,
+                projectDuration: document.getElementById('prjdr').value,
+                totalPrjHours: document.getElementById('prjhr').value,
+                prjManager: document.getElementById('prjmng').value,
+                prjDesc: document.getElementById('prjdesc').value
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('PUT', `/api/v1/${id}`, true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.send(JSON.stringify(param));
+        }
+        function mydlt() {
+            const id = document.getElementById('dltid').value;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('DELETE', `/api/v1/${id}`, true);
+            xhr.send();
+        }
+    </script>
+</header>
+
+<body>
+
+    <table id="projectTable">
+        <thead>
+            <tr id="pr">
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Project Duration</th>
+                <th>project Hours</th>
+                <th>Project Manager</th>
+                <th>project Desc</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+
+</html>

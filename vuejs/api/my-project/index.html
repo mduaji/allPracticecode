@@ -1,0 +1,44 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>my-project</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    built files will be auto injected 
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Vue Axios</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="user in users">{{ user.projectId }}</li>
+    </ul>
+  </div>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        users: []
+      },
+      created() {
+        var vm = this
+        axios.get('https://localhost:5000/api/v1/get')
+          .then(function (response) {
+            vm.users = response.data
+          })
+      }
+    })
+  </script>

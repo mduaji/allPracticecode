@@ -1,0 +1,17 @@
+{
+  "name": "ajith",
+  "version": "1.0.0",
+  "description": "",
+  "main": "arraysort.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ajith",
+  "license": "ISC",
+  "dependencies": {
+    "joi": "^14.3.1",
+    "lodash": "^4.17.11",
+    "mongodb": "^3.1.13",
+    "path": "^0.12.7"
+  }
+}

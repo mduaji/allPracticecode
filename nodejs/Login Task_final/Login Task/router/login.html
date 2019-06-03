@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div>
+        <form action="api/v1/auth" method="POST">
+            <input type="email" placeholder=" Enter Email" name="Email" value=""><br>
+            <input type="password" placeholder=" Enter password" name="Password" value=""><br>
+            <button>Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
+<!-- function createTableRow(product) {
+    console.log(product)
+    var productTable1 = document.getElementById("productTable");
+    var productTableBody = productTable1.querySelector("tbody");
+    for (var i = 0; i < product.length; i++) {
+        var productDt = product[i];
+        var trElements = '<tr  data-product-id = "' + productDt.productId + '" >'
+            // + '<td>' + productDt.productId + '</td>'
+            + '<td>' + productDt.productName + '</td>'
+            // + '<td>' + productDt.MobileNo + '</td>'
+            // + '<td>' + productDt.Email + '</td>'
+            // + '<td>' + productDt.Password + '</td>'
+            + '<td>' + productDt.productPrice + '</td>'
+            + '<td>' + productDt.color + '</td>'
+            + '<td>' + productDt.ReleasedDate + '</td>'
+            + '<td>' + productDt.Warranty + '</td>'
+            + '<td>' + productDt.productStatus + '</td>'
+            // + '<td><input type="button" onclick="deltfn(event)" value="delete"></td>'
+            + '<td id="check"><input type="checkbox"  onclick="checkAddress()" value="Select"></td>'
+            + '</tr>';
+        productTableBody.innerHTML += trElements;
+    }
+}
+
+
+function myget() {
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // document.getElementById('demo').innerHTML = this.responseText
+            var data = JSON.parse(this.responseText);
+            console.log(data);
+            createTableRow(data);
+        }
+    }
+    xhr.open('GET', '/get', true);
+    xhr.send();
+} -->

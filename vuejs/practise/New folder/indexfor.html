@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="msg">
+        <ul>
+            <li v-for="x in todos">
+                {{x.text}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var myobj = new Vue({
+            el: "#msg",
+            data: {
+                todos: [
+                    { text: "hello" },
+                    { text: "hello" },
+                    { text: "hello" }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<header>
+
+	<body>
+		<script>
+			var xmlHttp = getNewHTTPObject(); 
+
+			function chargeURLPut(url) {
+				var mimeType = "text/plain";
+				xmlHttp.open('PUT', url, true); 
+				xmlHttp.setRequestHeader('Content-Type', mimeType);
+				xmlHttp.send(null);
+			}
+		</script>
+		<FORM method="GET" action="">
+			<INPUT type="BUTTON" value="PUT" ONCLICK="chargeURLPut('api/view')">
+		</FORM>
+
+	</body>
+</header>
+
+</html>

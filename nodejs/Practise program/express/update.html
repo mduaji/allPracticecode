@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>update</title>
+</head>
+
+<body>
+    <script>
+        const putMethod = (event) => {
+            event.preventDefault();
+
+            const target = event.target;
+            while (target.tagname != 'FORM') {
+                target = target.parentElement;
+            }
+            const url = target.getAttribute("action");
+            const bodyForm = target.querySelector("[name^=put_]");
+            var body = {};
+            bodyForm.forEach(element => {
+                var nameArray = element.getAttribute("name").split("_");
+                var name = nameArray[nameArray.length - 1];
+                if (element.tagname != "TEXTAREA") {
+                    var value = getAttribute("value");
+                } else {
+                    var value = element.innerHTML;
+                }
+                body[name] = value;
+            });
+        }
+        var xhr = new XMLHttpRequest();
+        url=`api/put/${id}`;
+        xhr.open("PUT", url);
+        xhr.setRequestHeader("content-type", "application/json");
+        xhr.send();
+    </script>
+    <script>
+        document.querySelectorAll("[name=update_data],[name=delete_data]").foreach(element => {
+            var botton = element;
+            var form = element;
+            while (form.tagname != 'FORM') {
+                form = form.parentElement;
+            }
+            var method = form.getAttribute("method");
+            if (method == 'put') {
+                button.addEventListener("click", putMethod);
+            }
+            if (method == 'delete') {
+                button.addEventListener("click", deleteMethod);
+            }
+        });
+    </script>
+    <script>
+        document.querySelectorAll("[name= update_data]").foreach(element => {
+            var button = element;
+            button.addEventListener('click', deleteMethod);
+        });
+    </script>
+    <!-- <form id="tblForm" action='/api/put/:id' method="PUT">
+        <input type="text" name="id" id="tblID" value=""><br>
+        <input type="text" name="name" id="name" value=""><br>
+        <button type="submit">update</button>
+    </form> -->
+
+    <form method="PUT" >
+        <input type="hidden" name="delete_id" value="1" />
+        <input type="hidden" name="put_id" value="1" />
+        <input type="text" name="id" value="" /><br>
+        <input type="text" name="name" value="" />
+        <div>
+            <button name="update_data">update</button>
+            <button name="remove_data">Remove</button>
+        </div>
+    </form>
+    <hr>
+    <form method="DELETE" >
+        <input type="hidden" name="delete_id" value="1" />
+        <input type="text" name="delete_name" value="" />
+        <button name="delete_data">Remove item</button>
+    </form>
+</body>
+
+</html>

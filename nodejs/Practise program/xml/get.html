@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <p id='demo'></p>
+    <script>
+        function myfn() {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('GET', '/api/v1/view', true);
+            xhr.send();
+        }
+    </script>
+    <button onclick="myfn()">get details</button>
+</body>
+
+</html>

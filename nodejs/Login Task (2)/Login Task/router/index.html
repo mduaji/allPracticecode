@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <script>
+        function mypost() {
+            const param = {
+                Name: document.getElementById('name').value,
+                Email: document.getElementById('email').value,
+                MobileNo: document.getElementById('mobno').value,
+                Age: document.getElementById('age').value,
+                Gender: document.getElementById('gender').value,
+                Address: document.getElementById('adrs').value
+            }
+            console.log(param);
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText;
+                    console.log(responseText);
+                }
+            }
+            xhr.open('POST', '/api/v1/register', true);
+            xhr.setRequestHeader('Content-type','application/json');
+            xhr.send(JSON.stringify(param));
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p id="demo"></p>
+        <input type="text" id="name" placeholder="Enter Name" value=""><br>
+        <input type="email" id="email" placeholder="Enter Email" value=""><br>
+        <input type="text" id="mobno" placeholder="Enter MobileNo" value=""><br>
+        <input type="number" id="age" placeholder="Enter Age" value=""><br>
+        <input type="text" id="gender" placeholder="Enter Gender" value=""><br>
+        <input type="text" id="adrs" placeholder="Enter Address" value=""><br>
+        <button onclick="mypost()">POST</button>
+    </div> -->
+    <div>
+        <form action="/api/v1/register" method="POST">
+            <input type="text" placeholder="Enter Name" name="Name"><br>
+            <input type="email" placeholder="Enter Email" name="Email"><br>
+            <input type="text" placeholder="Enter mobileNo" name="MobileNo"><br>
+            <input type="number" placeholder="Enter Age" name="Age"><br>
+            <input type="text" placeholder="Enter Gender" name="Gender"><br>
+            <input type="text" placeholder="Enter Address" name="Address"><br>
+            <button>Submit</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

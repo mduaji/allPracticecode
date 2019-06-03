@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            width: 70%;
+            font: 17px calibri;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 2px;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body onload="createtable()">
+    <p>
+        <input type="button" id="addrow" value="Add the Row" onclick="addrow()" />
+    </p>
+    <div id="cont"></div>
+    <p>
+        <input type="button" id="bt" value="Submit the Data" onclick="submit()">
+    </p>
+
+</body>
+<script>
+    var arrayhead = new Array();
+    arrayhead = ['id', 'name', 'age', 'mobileNo', ''];
+
+    function createtable() {
+        var emptable = document.createElement('table');
+        emptable.setAttribute('id', 'emptable');
+
+        var tr = emptable.insertRow(-1);
+
+        for (i = 0; i < arrayhead.length; i++) {
+            var th = document.createElement('th');
+            th.innerHTML = arrayhead[i];
+            tr.appendChild(th)
+        }
+        var div = document.getElementById('cont');
+        div.appendChild(emptable);
+    }
+    function addrow() {
+        var emptab = document.getElementById('emptable');
+        var rowcnt = emptab.rows.length;
+
+        tr = emptab.insertRow(rowcnt);
+
+        for (j = 0; j < arrayhead.length; j++) {
+            var td = document.createElement('td');
+            td = tr.insertCell(j);
+            if(j== 0){
+                var button = document.createElement('button')
+            }
+        }
+    }
+
+
+</script>
+
+</html>

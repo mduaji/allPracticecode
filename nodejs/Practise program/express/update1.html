@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>update</title>
+</head>
+
+<body>
+    <script>
+        function onsubmit(e) {
+            e.preventDefault();
+            var f = document.getElementById("tblForm");
+            var id = document.getElementById("tblID");
+            console.log(id);
+            f.setAttribute("action", `/api/put/${id.value}`);
+            console.log(f);
+            f.submit();
+        }
+    </script>
+    <form id="tblForm" action="" method="PUT">
+        <!-- <input type="hidden" name="_method" value="PUT"> -->
+        <input type="text" name="id" id="tblID" value=""> <br>
+        <input type="text" name="name" id="name" value=""><br>
+        <button type="submit" onclick="onsubmit(Event)">update</button>
+    </form>
+</body>
+
+</html>

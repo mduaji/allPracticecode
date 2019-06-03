@@ -1,0 +1,36 @@
+documentation studied:
+	1.nodejs documentation in teachers toturial and w3schools,
+	2.express.org documentation,
+	3.mongodb documentation,
+	4.npm documentation,
+	5.mocha and chai(expect,should,assert) documentation,
+	6.javascript documentation,
+	7.html basic documentation,
+	8.istanbul documentation,
+	9.jwt documentation,
+	
+
+task:
+	1.simple crud operation(get,post,put,delete),
+	2.crud operation using api call,
+	3.crud operation using mongodb database,
+	4.create a simple UI for get,post,put,delete,
+	5.seprate the crud operation and mongodb using router,controller,model,
+	6.write the mocha and chai test case for crud operation,
+	7.write the xhrhttp request for crud operation,
+	8.write test case for positive and negative senario,
+	9.write the code coverage using istanbul,
+	10.jwt Authentication and token generate,
+	11.write the project management task in crud operation using mongoose and jwt ,mocha and chai test
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

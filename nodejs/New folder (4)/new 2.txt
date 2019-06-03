@@ -1,0 +1,21 @@
+Mocha
+ * Mocha is Featute rich javascript running on nodejs and in the browser
+ * Making on Async Testing simple
+ Assertion 
+ * Mocha allows you to use any assertion library
+ * assert is a bulitin module
+ * such as
+    1.should
+	2.expect
+	3.assert
+Ayschronous code:
+	Testing the ayschronous code with mocha could not be a simpler.
+	it simply invoke the callback when the test is completed.
+	by adding the callback done to it();
+Synchronous code:
+	When testing synchronous code, omit the callback and Mocha will automatically continue on to the next test.
+Hooks:
+	* With its default "BDD"-style interface, Mocha provides the hooks before(), after(), beforeEach(), and afterEach().
+	These should be used to set up preconditions and clean up after your tests.
+	* Tests can appear before, after, or interspersed with your hooks. Hooks will run in the order they are defined, as appropriate; 
+	all before() hooks run (once), then any beforeEach() hooks, tests, any afterEach() hooks, and finally after() hooks (once).

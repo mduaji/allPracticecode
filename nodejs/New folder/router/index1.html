@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<style>
+  table {
+    width:70%;
+    font: 20px;
+  }
+  table ,th, td{
+    border: solid 2px;
+    border-collapse: collapse;
+    padding: 2px,3px;
+    text-align: center;
+  }
+</style>
+<script>
+  function addfn(e){
+    // var id = document.getElementById('addbt').parentElement.nodeName;
+    var id = e.target.closest('tr').getAttribute('id');
+    console.log(id);
+  }
+  function editfn(){
+    var id = document.getElementById('editbt').parentElement.nodeName
+    console.log(id);
+  }
+  function deltfn(){
+    var id = document.getElementById('deltbt').parentElement.nodeName
+    console.log(id);
+  }
+</script>
+  </head>
+  <body>
+<table>
+    <tr id="pr">
+        <th>Project ID</th>
+        <th>Project Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Project Duration</th>
+        <th>project Hours</th>
+        <th>Project Manager</th>
+        <th>project Desc</th>
+        <th id="addbt"> <input type="button" onclick="addfn(event)" value="Edit"></th>
+        <th id="editbt"><input type="button" onclick="editfn()" value="Add"></th>
+        <th id="deltdt"><input type="button" onclick="deltfn()" value="Delete"></th>
+      </tr>
+      <tr id="1">
+        <td>1</td>
+        <td>salary update</td>
+        <td>2019-02-12</td>
+        <td>2019-05-14</td>
+        <td>14</td>
+        <td>30</td>
+        <td>Ajith</td>
+        <td>salary upadate task</td>
+        <td id="addbt"> <input type="button" onclick="addfn(event)" value="Edit"></td>
+        <td id="editbt"><input type="button" onclick="editfn()" value="Add"></td>
+        <td id="deltbt"><input type="button" onclick="deltfn()" value="Delete"></td>
+      </tr>
+</table>
+<div>
+  <p id='demo'></p>  
+</div>
+
+  </body>
+</html>

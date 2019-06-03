@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            width: 70%;
+            font: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: solid 2px;
+            border-collapse: collapse;
+            padding: 2px, 3px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function createTableRow(projects) {
+            var prjtTbl = document.getElementById('projectTable');
+            var prjtTblBody = prjtTbl.querySelector('tbody');
+            console.log(projects);
+            for (var i = 0; i < projects.length; i++) {
+                var prjt = projects[i];
+                var trElements = '<tr>'
+                    + '<td>' + prjt.Name + '</td>'
+                    + '<td>' + prjt.Email + '</td>'
+                    + '<td>' + prjt.MobileNo + '</td>'
+                    + '<td>' + prjt.Age + '</td>'
+                    + '<td>' + prjt.Gender + '</td>'
+                    + '<td>' + prjt.Address + '</td>'
+                    + '<td>' + prjt.Password + '</td>'
+                    + '<td>' + prjt.Status + '</td>'
+                    + '</tr>';
+
+                prjtTblBody.innerHTML += trElements;
+            }
+        }
+    </script>
+    <script>
+        function myget() {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var data = JSON.parse(this.responseText);
+                    createTableRow(data.Data);
+                }
+            }
+            xhr.open('GET', '/api/v1/get', true);
+            xhr.send();
+        }
+
+        window.onload = function () {
+            myget();
+        }
+    </script>
+</head>
+
+<body>
+    <table id="projectTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>MobileNo</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Password</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function myget() {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('GET', `/api/v1/view`, true);
+            xhr.send();
+        }
+        function myfn() {
+            const id = document.getElementById('getid').value;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('GET', `/api/v1/get/${id}`, true);
+            xhr.send();
+        }
+        function mypost() {
+            const param = {
+                id: document.getElementById('instid').value,
+                name: document.getElementById('instname').value
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('POST', '/api/v1/post/', true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.send(JSON.stringify(param));
+        }
+        function myput() {
+            const id = document.getElementById('uptid').value;
+            const param = {
+                name: document.getElementById('uptnm').value
+            }
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('PUT', `/api/v1/put/${id}`, true);
+            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.send(JSON.stringify(param));
+        }
+        function mydlt() {
+            const id = document.getElementById('dltid').value;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('demo').innerHTML = this.responseText
+                }
+            }
+            xhr.open('DELETE', `/api/v1/delete/${id}`, true);
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p id='demo'></p>
+        <button onclick="myget()">getAll details</button>
+    </div>
+    <div>
+        <p id='demo'></p>
+        <input type="number" id="getid" placeholder="Enter ID" value=""><br>
+        <button onclick="myfn()">getID details</button>
+    </div>
+    <div>
+        <p id='demo'></p>
+        <input type="number" id="instid" name="id" placeholder="Enter ID" value=""><br>
+        <input type="text" id="instname" name="name" placeholder="Enter Nm" value=""><br>
+        <button onclick="mypost()">post details</button>
+    </div>
+    <div>
+        <p id='demo'></p>
+        <input type="number" id="uptid" placeholder="Enter ID" value=""><br>
+        <input type="text" id="uptnm" placeholder="Enter Nm" value=""><br>
+        <button onclick="myput()">put details</button>
+    </div>
+    <div>
+        <p id='demo'></p>
+        <input type="number" id="dltid" placeholder="Enter ID" value=""><br>
+        <button onclick="mydlt()">dlt details</button>
+    </div>
+</body>
+
+</html>

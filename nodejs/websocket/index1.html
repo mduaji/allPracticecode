@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript">
+        function webSocketTest() {
+            if ("websocket " in window) {
+                alert('we socket is support from the browser');
+                var ws = new WebSocket("ws://locslhost:8000/");
+
+                ws.onopen = function () {
+                    ws.send('message to send..');
+                    alert('message is send')
+                }
+                ws.onmessage =function(evnt){
+                    var receive_msg = evnt.data;
+                    alert('message is received')
+                }
+                ws.onclose= function(){
+                    alert('collection closed..');
+                }
+            }
+            else{
+                alert('websocket cannot support your bowser')
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div id='sse'>
+        <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+    </div>
+</body>
+
+</html>

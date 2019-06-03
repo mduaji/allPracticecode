@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+<body>
+    <!-- <div id="msg">
+        <h1>{{message}}</h1>
+    </div>
+    <script>
+        var vueobjt = new Vue({
+            el: '#msg',
+            data: { message: "hello" }
+        })
+    </script> -->
+    <div id="app2">
+            <span v-bind:title="message">
+              Hover your mouse over me for a few seconds
+              to see my dynamically bound title!
+            </span>
+          </div>
+          <script>
+           var app2 = new Vue({
+            el: '#app2',
+            data: {
+              message: 'You loaded this page on ' + new Date().toLocaleString()
+            }
+          })</script>
+         
+</body>
+
+</html>

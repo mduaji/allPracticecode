@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form>
+        <div id="demo">
+            <input type="number" id="id" placeholder="Enter ID" value=""><br>
+            <button onclick="myfn()">getid details</button>
+        </div>
+        <script>
+            function myfn() {
+                var id = document.getElementById("id").value;
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("demo").innerHTML = this.responseText;
+                    }
+                }
+                xhr.open("GET", `/api/v1/get/${id}`, true);
+                xhr.send();
+            }
+        </script>
+
+    </form>
+    <!-- <form method="POST" action="/api/v1/post">
+        <input type="number" name="id" placeholder="Enter ID" value=""><br>
+        <input type="text" name="name" placeholder="Enter Nm" value=""><br>
+        <button type="submit">insert</button>
+    </form>
+    <form>
+        <p id="demo1"></p>
+        <script>
+            function myupdt() {
+                var xhr = new XMLHttpRequest();
+                var id = document.getElementById("id").value;
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("demo1").innerHTML = this.responseText;
+                    }
+                }
+                xhr.open("PUT", `/api/v1/put/${id}`, true);
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.send();
+            }
+        </script>
+        <input type="number" id="id" placeholder="Enter ID" value=""><br>
+        <input type="text" name="name" placeholder="Enter Nm" value=""><br>
+        <button onclick="myupdt()">Update details</button>
+    </form>
+    <form>
+            <p id="demo"></p>
+            <script>
+                function mydlt() {
+                    var xhr = new XMLHttpRequest();
+                    var id = document.getElementById("id").value;
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("demo").innerHTML = this.responseText;
+                        }
+                    }
+                    xhr.open("DELETE", `/api/v1/get/${id}`, true);
+                    xhr.send();
+                }
+            </script>
+            <input type="number" id="id" placeholder="Enter ID" value=""><br>
+            <button onclick="mydlt()">dltid details</button>
+        </form> -->
+</body>
+
+</html>
