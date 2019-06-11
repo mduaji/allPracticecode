@@ -23,14 +23,59 @@ app.use(function (req, res, next) {
 
 app.post('/api/login', (req, res) => {
     const email1 = req.body.Email;
+    console.log(email1)
     //gte the Details in Database
-    var sql = `SELECT * FROM datadb where Email=?`;
+    var sql = `SELECT * FROM employee where Email=?`;
     con.query(sql, [email1], function (err, userInfo) {
+        console.log(userInfo)
         //Details Not Found
         if (!userInfo || userInfo.length === 0) {
             res.status(404).json("Eamil Id not Found");
         }
         else {
+            console.log(req.body.Password)
+            console.log(userInfo[0].Password)
+            //compare the request password and register password ,result ==true
+            bcrypt.compare(req.body.Password, userInfo[0].Password, (err, result) => {
+                //the Password Should Be Wrong
+                if (!result == true) {
+                    console.log("password Error")
+                    return res.status(500).json("login failed Enter Correct Password or user");
+                }
+                else {
+                    //console.log(result);
+                    const JWTToken = jwt.sign({
+                        Email: result.Email
+                    },
+                        'secret',
+                        {
+                            expiresIn: '2h'
+                        });
+                    //the token will generate
+                    return res.status(200).send({
+                        status: "success",
+                        data: userInfo,
+                        token: JWTToken
+                    });
+                };
+            });
+        }
+    });
+});
+app.post('/api/loginmng', (req, res) => {
+    const email1 = req.body.Email;
+    console.log(email1)
+    //gte the Details in Database
+    var sql = `SELECT * FROM managerdb where Email=?`;
+    con.query(sql, [email1], function (err, userInfo) {
+        console.log(userInfo)
+        //Details Not Found
+        if (!userInfo || userInfo.length === 0) {
+            res.status(404).json("Eamil Id not Found");
+        }
+        else {
+            console.log(req.body.Password)
+            console.log(userInfo[0].Password)
             //compare the request password and register password ,result ==true
             bcrypt.compare(req.body.Password, userInfo[0].Password, (err, result) => {
                 //the Password Should Be Wrong
@@ -61,7 +106,7 @@ app.post('/api/login', (req, res) => {
 app.get('/api/get', token, (req, res) => {
     const email = req.query.Email
     console.log(email);
-    const sql = 'SELECT * FROM datadb where Email=?'
+    const sql = 'SELECT * FROM employee where Email=?'
     con.query(sql, [email], (err, result) => {
         if (err) {
             res.status(404).json('Email not Found')
@@ -70,20 +115,20 @@ app.get('/api/get', token, (req, res) => {
         }
     })
 });
-// app.get('/api/getDetails', token, (req, res) => {
-//     const email = req.query.Email
-//     console.log(email);
-//     const sql = 'SELECT * FROM datadb where Email=?'
-//     con.query(sql, [email], (err, result) => {
-//         if (err) {
-//             res.status(404).json('Email not Found')
-//         } else {
-//             res.status(200).json(result);
-//         }
-//     })
-// });
+app.get('/api/getManager', token, (req, res) => {
+    const email = req.query.Email
+    console.log("ManagerEmail    :", email);
+    const sql = 'SELECT * FROM managerdb where Email=?'
+    con.query(sql, [email], (err, result) => {
+        if (err) {
+            res.status(404).json('Email not Found')
+        } else {
+            res.status(200).json(result);
+        }
+    })
+});
 app.post('/api/register', (req, res) => {
-    let sql = "INSERT INTO datadb set ?";
+    let sql = "INSERT INTO managerdb set ?";
     //Register Details
     let value = {
         Name: req.body.Name,
@@ -91,11 +136,60 @@ app.post('/api/register', (req, res) => {
         MobileNo: req.body.MobileNo,
         Age: req.body.Age,
         Address: req.body.Address,
+        Role: req.body.Role,
+        ManagerId: req.body.ManagerId,
+        ProjectId: req.body.ProjectId,
         Password: req.body.Password
     }
     //console.log(value);
     //joi validation
-    joi.validate(value, schema, (err, validationresult) => {
+    joi.validate(value, schema.Manager, (err, validationresult) => {
+        //Hash the Request Password
+        validationresult.Password = bcrypt.hashSync(validationresult.Password);
+        //joi Validation Error
+
+        if (err) {
+            res.status(404).json({ status: 'Error', Error: 'joi validation error' + err });
+        }
+        //validation Success =>
+        else {
+            con.query(sql, validationresult, (err, result) => {
+                //Details Already Exists
+                if (err) {
+                    res.status(404).json({
+                        status: "Error",
+                        Error: 'Email Already Exist ' + err
+                    })
+                }
+                //Details successfully Register
+                else {
+                    res.status(200).json({
+                        status: "Successfully Registered",
+                        data: result
+                    });
+                }
+            });
+        }
+    });
+});
+app.post('/api/registeremp', (req, res) => {
+    let sql = "INSERT INTO employee set ?";
+    //Register Details
+    let value = {
+        EmployeeId: req.body.EmployeeId,
+        Name: req.body.Name,
+        Email: req.body.Email,
+        MobileNo: req.body.MobileNo,
+        Age: req.body.Age,
+        Address: req.body.Address,
+        Role: req.body.Role,
+        ManagerId: req.body.ManagerId,
+        ProjectId: req.body.ProjectId,
+        Password: req.body.Password
+    }
+    //console.log(value);
+    //joi validation
+    joi.validate(value, schema.Employee, (err, validationresult) => {
         //Hash the Request Password
         validationresult.Password = bcrypt.hashSync(validationresult.Password);
         //joi Validation Error
@@ -149,7 +243,7 @@ app.get('/api/forgetPassword', (req, res) => {
     });
     const Email = req.query.Email
     // console.log(Email)
-    const sql = "select Email from datadb where Email=?"
+    const sql = "select Email from employee where Email=?"
     con.query(sql, [Email], (err, result) => {
         if (result.length == 0) {
             res.status(404).json("Email Id is not found");
@@ -210,7 +304,7 @@ app.get('/api/getOTP', (req, res) => {
 })
 app.put('/api/putpass', (req, res) => {
     console.log(req.body)
-    const sql = "update datadb set Password=? where Email =?"
+    const sql = "update employee set Password=? where Email =?"
     const Email = req.query.Email;
     Password1 = bcrypt.hashSync(req.body.Password);
     con.query(sql, [Password1, Email], (err, result) => {
@@ -248,6 +342,110 @@ app.get('/api/delete', (req, res) => {
             return res.redirect(`/api/forgetPassword?Email=${Email}`)
         }
     })
+});
+app.get('/api/getManagerId', (req, res) => {
+    let ManagerId = req.query.ManagerId;
+    console.log("managerId   ::", ManagerId);
+    let sql = 'select * from employee where ManagerId =?';
+    con.query(sql, [ManagerId], (err, result) => {
+        if (err) {
+            return res.status(404).send(err);
+        }
+        res.json(result);
+    })
+});
+app.get('/api/getbyProject', (req, res) => {
+    console.log("project list")
+    const Email = req.query.Email
+    let sql = "select * from datadb where Email=? "
+    con.query(sql, [Email], (err, result) => {
+        if (err) {
+            return res.status(404).send(err);
+        }
+        res.json(result);
+    })
+})
+app.get('/api/forgetPasswordmng', (req, res) => {
+
+    const dynamicPassword = generator.generate({
+        length: 7,
+        numbers: true,
+        uppercase: true
+    });
+    const Email = req.query.Email
+    console.log(Email)
+    const sql = "select Email from managerdb where Email=?"
+    con.query(sql, [Email], (err, result) => {
+        if (result.length == 0) {
+            res.status(404).json("Email Id is not found");
+        }
+        else {
+            const sql = "insert into otptbl (Email,OTPvl) values (?,?)"
+            con.query(sql, [Email, dynamicPassword], (err, result) => {
+                if (err) {
+                    console.log("insert Err")
+                    // res.status(404).json('Insert OTP is error')
+                    return res.redirect(`/api/delete?Email=${Email}`);
+                } else {
+                    sgMail.setApiKey('SG.TdGZt1e1SKe1qoKlgttoYQ.iMfuZDL_F9wuQeYMRxSFeIgPQegTLgxz1iX_ZiS6jD0');
+                    const msg = {
+                        to: 'ajithc1096@gmail.com',
+                        from: 'mduaji10@gmail.com',
+                        subject: 'Sending with Twilio SendGrid is Fun',
+                        text: 'and easy to do anywhere, even with Node.js',
+                        html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                    };
+                    sgMail.send(msg);
+                    // var transporter = nodemailer.createTransport({
+                    //     service: 'gmail',
+                    //     auth: {
+                    //         user: 'mduaji10@gmail.com',
+                    //         pass: 'aji10964'
+                    //     }
+                    // });
+                    // //Content to be send...
+                    // var mailOptions = {
+                    //     from: 'mduaji10@gmail.com',
+                    //     to: `${req.query.Email}`,
+                    //     subject: 'Sending the Email in Login Password',
+                    //     text: 'Your Gmail Login Password',
+                    //     html: `<h1> Password   :${dynamicPassword}<h1>`
+
+                    // };
+                    // //The Mail should Be send
+                    // transporter.sendMail(mailOptions);
+                    res.status(200).json(result)
+                }
+            })
+        }
+    })
+
+});
+app.get('/api/getOTPmng', (req, res) => {
+    const sql = "select * from otptbl where OTPvl=?"
+    const value = req.query.OTPvl;
+    console.log("otp   :", value)
+    con.query(sql, [value], (err, result) => {
+        if (!result.length) {
+            res.status(404).json("OTP not found")
+        } else {
+            res.status(200).json(result)
+        }
+    })
+})
+app.put('/api/putpassmng', (req, res) => {
+    console.log(req.body)
+    const sql = "update managerdb set Password=? where Email =?"
+    const Email = req.query.Email;
+    Password1 = bcrypt.hashSync(req.body.Password);
+    con.query(sql, [Password1, Email], (err, result) => {
+        if (!result) {
+            res.status(404).json("Password Update is error")
+        } else {
+            res.status(200).json(result)
+        }
+    })
+
 })
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`The Server Listen Port ${port}....`));

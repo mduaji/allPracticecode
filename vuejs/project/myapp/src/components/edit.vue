@@ -131,6 +131,7 @@
       </b-row>
       <b-button variant="success" @click="checkForm" class="btn btn-primary">Update Data</b-button>
     </b-container>
+    
   </div>
 </template>
 
